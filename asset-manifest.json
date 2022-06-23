@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/glacea7/tenzies-npx/static/css/main.24c7e4bc.css",
-    "main.js": "/glacea7/tenzies-npx/static/js/main.30ec832b.js",
-    "static/js/787.a7ce07fe.chunk.js": "/glacea7/tenzies-npx/static/js/787.a7ce07fe.chunk.js",
-    "index.html": "/glacea7/tenzies-npx/index.html",
-    "main.24c7e4bc.css.map": "/glacea7/tenzies-npx/static/css/main.24c7e4bc.css.map",
-    "main.30ec832b.js.map": "/glacea7/tenzies-npx/static/js/main.30ec832b.js.map",
-    "787.a7ce07fe.chunk.js.map": "/glacea7/tenzies-npx/static/js/787.a7ce07fe.chunk.js.map"
+    "main.css": "/tenzies-npx/static/css/main.24c7e4bc.css",
+    "main.js": "/tenzies-npx/static/js/main.c4756a53.js",
+    "static/js/787.a7ce07fe.chunk.js": "/tenzies-npx/static/js/787.a7ce07fe.chunk.js",
+    "index.html": "/tenzies-npx/index.html",
+    "main.24c7e4bc.css.map": "/tenzies-npx/static/css/main.24c7e4bc.css.map",
+    "main.c4756a53.js.map": "/tenzies-npx/static/js/main.c4756a53.js.map",
+    "787.a7ce07fe.chunk.js.map": "/tenzies-npx/static/js/787.a7ce07fe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.24c7e4bc.css",
-    "static/js/main.30ec832b.js"
+    "static/js/main.c4756a53.js"
   ]
 }
