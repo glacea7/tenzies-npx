@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Die from './components/Die'
 import {nanoid} from 'nanoid'
 import Confetti from 'react-confetti'
@@ -9,22 +9,26 @@ export default function App() {
 	const [dice,setDice] = useState(allDice())
 	const [tenzies, setTenzies] = useState(false)
 	const [formOn, setFormOn] = useState(true)
-	
-	let counter = 0;
-	let rollCounter = 0;
+	const [rollCount, setRollCount] = useState(0)
+	const [minutes, setMinutes] = useState(0)
+	const [seconds, setSeconds] = useState(0)
 
+	let counter = 0;
+	var idRef = useRef(null)
 
 	useEffect( ()=> {
 		const allHeldDice = dice.every(die=>die.isHeld)
 		const sameValue = dice[0].value
 		const allSameValue = dice.every(die=>die.value === sameValue)
-
+		
 		if(allHeldDice && allSameValue){
-			setTenzies(true)	
-			}
+			setTenzies(true)
+			clearInterval(idRef.current)
+		}
+		
+	}, [dice])
 
-	},[dice])
-	
+
 	function generateNewDie(){
 		return{
 			id: nanoid(),
@@ -32,6 +36,15 @@ export default function App() {
 			isHeld: false
 		}
 	}
+
+	function timer(){
+		
+			setSeconds(prevSeconds=>prevSeconds+ 1)
+			if(seconds%60===0 && seconds!==0){setMinutes(prevMinutes=>prevMinutes+1)}
+		
+	}
+
+
 	function allDice(){
 		let diceHolder = []
 		
@@ -44,9 +57,9 @@ export default function App() {
 		}
 
 	function rerollDice(){
-		console.log("rollcounter++")
-		rollCounter=rollCounter+1
+		
 		if(!tenzies){
+			setRollCount(prevCount=>prevCount+1)
 			setDice(oldDice=>oldDice.map(die=>{
 				return die.isHeld ?
 				die :
@@ -56,9 +69,8 @@ export default function App() {
 		}else{
 			setTenzies(false)
 			setFormOn(true)
-			rollCounter=0
+			setRollCount(0)
 		}
-		return rollCounter
 		}
 
 	function hold(id){
@@ -70,20 +82,20 @@ export default function App() {
 			 die
 			
 		}))
-			
 		}
-	
 	
 	function handleChange(event){
 		counter = (event.target.value)
-		console.log(counter)
 		return counter
 	}
+
 	function handleSubmit(){
 		handleNewDice()
 		setFormOn(!formOn)
-
+		const id = setInterval(timer,1000)
+		idRef.current = id
 	}
+
 	function handleNewDice(){
 		let playerChosenDice = []
 		for(let i=0;i<counter;i++){
@@ -92,6 +104,19 @@ export default function App() {
 		setDice(playerChosenDice)
 		return playerChosenDice
 	}
+
+	function displayTime(mins, secs){
+		let showMinutes = mins
+		let showSeconds = secs%60
+		if(showMinutes < 10){
+			showMinutes = "0" + showMinutes
+		}
+		if(showSeconds < 10){
+			showSeconds = "0" + showSeconds
+		}
+		return showMinutes +" : "+showSeconds
+	}
+
 	const diceElement = dice.map(die=> (
 		<Die 
 		value={die.value}
@@ -99,9 +124,6 @@ export default function App() {
 		isHeld={die.isHeld}
 		hold={()=>{hold(die.id)}}
 		/>))
-		//if form is true, ask a question for how many dice you want to play with
-		//after input submitted, setForm to false and proceed the game
-		
 
 	const isFormOn =
 		<form onSubmit={handleSubmit}>
@@ -110,11 +132,10 @@ export default function App() {
 		placeholder='Number of dices'
 		onChange={handleChange}
 		/>
-		<button>Submit</button>
+		<button className="submit-button">Submit</button>
 	</form>
 	
 	const rrButton = 
-		
 		<button className="reroll-button" onClick={rerollDice}>
 		{tenzies && 
 		<Confetti 
@@ -124,22 +145,17 @@ export default function App() {
 		{tenzies ? "New Game"  : "Roll"}
 		</button>
 	
-
   return (
 	<main>
-		<p1 className="roll-counter">Roll Counter:{rollCounter}</p1>
-		<h2>Tenzies</h2>
-		<p1>Roll until all dice are the same. Click each die to hold its value between rolls.</p1>
+			<p1 className="roll-counter">Roll Counter: {rollCount}<br /><br /> {displayTime(minutes,seconds)}</p1>
+			<h1>Tenzies</h1>
+			<p1>Roll until all dice are the same. Click each die to hold its value between rolls.</p1>
+			{formOn && isFormOn}
+		<div className="dice-grid">
+			{!formOn && diceElement }
+		</div>
+			{!formOn && rrButton}
 
-		{formOn && isFormOn}
-
-    	<div className="dice-grid">
-		{!formOn && diceElement }
-    </div>
-		{!formOn && rrButton}
-		
-			
-			
 	</main>
   );
 }

@@ -4,19 +4,32 @@ body {
     padding: 20px;
     font-family: 'Karla', sans-serif;
 }
+input[type=number]{
+	border: none;
+	
+}
 .roll-counter{
 	position: absolute;
 	top: 50px;
-	right:210px;
-	text-align: center;
+	left: 16%;
+	text-align: left;
+	
+	
+}
+.submit-button{
+	border: none;
+	height: 24px;
+	color: white;
+	background-color: #5035FF;
+	margin: 8px;
 }
 main {
     background-color: #F5F5F5;
 	border: #4CA0F1 solid 8px;
     height: 80vh ;
-    max-width: 80% ;
+    max-width: 70vw ;
     border-radius: 5px;
-    padding: 20px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
