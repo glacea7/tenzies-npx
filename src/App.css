@@ -69,7 +69,8 @@ margin:auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
-	
-
+  }
+  h1{
+	font:900;
+	font-size: 3rem;
   }

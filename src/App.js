@@ -70,6 +70,8 @@ export default function App() {
 			setTenzies(false)
 			setFormOn(true)
 			setRollCount(0)
+			setMinutes(0)
+			setSeconds(0)
 		}
 		}
 
